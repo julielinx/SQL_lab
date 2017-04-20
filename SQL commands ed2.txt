@@ -1,0 +1,116 @@
+CREATE TABLE Location
+    (LOC_ID int,
+    BLDG_CODE varchar(3),
+    ROOM varchar(3),
+    CAPACITY int);
+
+CREATE TABLE Student
+    (S_ID int,
+    S_LAST varchar(255),
+    S_FIRST varchar(255),
+    S_MI varchar(1),
+    S_ADDRESS varchar(255),
+    S_CITY varchar(255),
+    S_STATE varchar(2),
+    S_ZIP varchar(5),
+    S_PHONE varchar(10),
+    S_CLASS varchar(2),
+    S_DOB date,
+    S_PIN varchar(4),
+    F_ID int,
+    DATE_ENROLLED date);
+
+CREATE TABLE Faculty
+    (F_ID int,
+    F_LAST varchar(255),
+    F_FIRST varchar(255),
+    F_MI varchar(1),
+    LOC_ID int,
+    F_PHONE  varchar(10),
+    F_RANK varchar(255),
+    F_SUPER int,
+    F_PIN varchar(4));
+
+CREATE TABLE Term
+    (TERM_ID int,
+
+    TERM_SEMESTER varchar(255),
+
+    TERM_YEAR year,
+
+    TERM_STATUS varchar(255),
+    START_DATE date);
+
+CREATE TABLE Enrollment
+    (S_ID int,
+    C_SEC_ID int,
+    GRADE varchar(1));
+
+CREATE TABLE Course
+    (COURSE_ID int,
+    COURSE_NO  varchar(6),
+    COURSE_NAME varchar(255),
+    CREDITS int);
+
+CREATE TABLE Course_Section
+    (C_SEC_ID int,
+    COURSE_ID int,
+    TERM_ID int,
+    SEC_NUM int,
+    F_ID int,
+    MTG_DAYS  varchar(255),
+    START_TIME time,
+    END_TIME time,
+    LOC_ID int,
+    MAX_ENRL int);
+
+
+LOAD DATA LOCAL INFILE '/Users/Julie/Documents/BI and analytics degree/Intro to DS/CSVs and data/Location.csv' INTO TABLE Location
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\r\n'
+IGNORE 2 LINES
+(LOC_ID, BLDG_CODE, ROOM, CAPACITY);
+
+LOAD DATA LOCAL INFILE '/Users/Julie/Documents/BI and analytics degree/Intro to DS/CSVs and data/Student.csv' INTO TABLE Student
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\r\n'
+IGNORE 2 LINES
+(S_ID, S_LAST, S_FIRST, S_MI, S_ADDRESS, S_CITY, S_STATE, S_ZIP, S_PHONE, S_CLASS, S_DOB, S_PIN, F_ID, DATE_ENROLLED); ***data truncated for S-DOB***
+
+LOAD DATA LOCAL INFILE '/Users/Julie/Documents/BI and analytics degree/Intro to DS/CSVs and data/Faculty.csv' INTO TABLE Faculty
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\r\n'
+IGNORE 2 LINES
+(F_ID, F_LAST, F_FIRST, F_MI, LOC_ID, F_PHONE, F_RANK, F_SUPER, F_PIN);
+
+LOAD DATA LOCAL INFILE '/Users/Julie/Documents/BI and analytics degree/Intro to DS/CSVs and data/Term.csv' INTO TABLE Term
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\r\n'
+IGNORE 2 LINES
+(TERM_ID, TERM_SEMESTER, TERM_YEAR, TERM_STATUS, START_DATE);
+
+LOAD DATA LOCAL INFILE '/Users/Julie/Documents/BI and analytics degree/Intro to DS/CSVs and data/Enrollment.csv' INTO TABLE Enrollment
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\r\n'
+IGNORE 2 LINES
+(S_ID, C_SEC_ID, GRADE);
+
+LOAD DATA LOCAL INFILE '/Users/Julie/Documents/BI and analytics degree/Intro to DS/CSVs and data/Course.csv' INTO TABLE Course
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\r\n'
+IGNORE 2 LINES
+(COURSE_ID, COURSE_NO, COURSE_NAME, CREDITS);
+
+LOAD DATA LOCAL INFILE '/Users/Julie/Documents/BI and analytics degree/Intro to DS/CSVs and data/Course_Section.csv' INTO TABLE Course_Section
+FIELDS TERMINATED BY ','
+ENCLOSED BY ""
+LINES TERMINATED BY '\r\n'
+IGNORE 2 LINES
+(C_SEC_ID, COURSE_ID, TERM_ID, SEC_NUM, F_ID, MTG_DAYS, START_TIME, END_TIME, LOC_ID, MAX_ENRL);
+***START_TIME didn't work. I think you need to change that one to TIME***
